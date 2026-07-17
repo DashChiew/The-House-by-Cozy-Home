@@ -4,6 +4,48 @@ from app.models import Property, Unit, Room
 properties_bp = Blueprint('properties', __name__)
 
 
+@properties_bp.route('/seed-db-once', methods=['GET'])
+def seed_db_once():
+    # Check if an admin user already exists to prevent accidental re-seeding
+    try:
+        from app.models import AdminUser
+        admin = AdminUser.query.first()
+        if admin:
+            return jsonify({'message': 'Database is already seeded. Seeding aborted for safety.'}), 400
+    except Exception:
+        # Table might not exist yet, which is fine
+        pass
+
+    import subprocess
+    import sys
+    import os
+
+    try:
+        # Resolve path to seed.py
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        backend_dir = os.path.dirname(os.path.dirname(current_dir))
+        seed_path = os.path.join(backend_dir, 'seed.py')
+
+        # Run seed.py --force
+        result = subprocess.run(
+            [sys.executable, seed_path, '--force'],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        return jsonify({
+            'message': 'Database seeded successfully! You can now login with admin/admin123.',
+            'output': result.stdout
+        }), 200
+    except Exception as e:
+        return jsonify({
+            'error': 'Failed to seed database.',
+            'details': str(e),
+            'stderr': getattr(e, 'stderr', None)
+        }), 500
+
+
+
 @properties_bp.route('/properties', methods=['GET'])
 def get_properties():
     """List all active properties with summary info."""

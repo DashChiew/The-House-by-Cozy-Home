@@ -20,21 +20,24 @@ app = create_app()
 
 with app.app_context():
     # ── Safety Guard ─────────────────────────────────────────────────────────────
-    print("")
-    print("=" * 60)
-    print("  ⚠️  WARNING: DESTRUCTIVE OPERATION")
-    print("=" * 60)
-    print("  This will DELETE ALL TABLES and ALL DATA in the database,")
-    print("  then reseed with demo data.")
-    print("")
-    print("  Your custom properties, units, rooms, and photos will be")
-    print("  PERMANENTLY LOST.")
-    print("=" * 60)
-    confirm = input("  Type 'yes' to confirm and reset, or press Enter to cancel: ").strip().lower()
-    if confirm != 'yes':
-        print("\n[CANCELLED] No changes made. Your data is safe.")
-        sys.exit(0)
-    print("")
+    bypass_confirm = '--force' in sys.argv
+    if not bypass_confirm:
+        print("")
+        print("=" * 60)
+        print("  ⚠️  WARNING: DESTRUCTIVE OPERATION")
+        print("=" * 60)
+        print("  This will DELETE ALL TABLES and ALL DATA in the database,")
+        print("  then reseed with demo data.")
+        print("")
+        print("  Your custom properties, units, rooms, and photos will be")
+        print("  PERMANENTLY LOST.")
+        print("=" * 60)
+        confirm = input("  Type 'yes' to confirm and reset, or press Enter to cancel: ").strip().lower()
+        if confirm != 'yes':
+            print("\n[CANCELLED] No changes made. Your data is safe.")
+            sys.exit(0)
+        print("")
+
 
     # Drop all tables first to apply schema changes (like new video_url in Room)
     db.drop_all()
