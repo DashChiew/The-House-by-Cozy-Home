@@ -44,8 +44,13 @@ def create_app():
 
     # Serve React frontend for non-API routes (production)
     from flask import send_from_directory
-    frontend_folder = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..', 'frontend', 'dist')
-    frontend_folder = os.path.abspath(frontend_folder)
+    
+    # Check parent folder (local development)
+    frontend_folder = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..', 'frontend', 'dist'))
+    
+    # If not found (Render deployment), check dist inside backend folder
+    if not os.path.exists(frontend_folder):
+        frontend_folder = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'dist'))
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
@@ -58,6 +63,6 @@ def create_app():
         index_path = os.path.join(frontend_folder, 'index.html')
         if os.path.exists(index_path):
             return send_from_directory(frontend_folder, 'index.html')
-        return {'message': 'API is running. Frontend not built yet.'}, 200
+        return {'message': 'API is running. Frontend not built yet.', 'folder_path': frontend_folder}, 200
 
     return app

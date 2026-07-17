@@ -10,7 +10,7 @@ services:
     runtime: python
     rootDir: backend
     # Installs Python packages, creates DB tables, builds the React frontend
-    buildCommand: pip install -r requirements.txt && python init_db.py && cd ../frontend && npm install && npm run build
+    buildCommand: pip install -r requirements.txt && python init_db.py && cd ../frontend && npm install && npm run build && rm -rf ../backend/dist && cp -r dist ../backend/dist
     startCommand: gunicorn run:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     plan: free
     envVars:
