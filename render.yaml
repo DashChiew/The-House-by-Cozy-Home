@@ -4,12 +4,13 @@ databases:
     plan: free
 
 services:
-  # ── Backend Flask API ────────────────────────────────────────────────────────
+  # ── Unified Backend & Frontend Web Service ──────────────────────────────────
   - type: web
     name: thehouse-backend
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt && python init_db.py
+    # Installs Python packages, creates DB tables, builds the React frontend
+    buildCommand: pip install -r requirements.txt && python init_db.py && cd ../frontend && npm install && npm run build
     startCommand: gunicorn run:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     plan: free
     envVars:
@@ -23,22 +24,3 @@ services:
         generateValue: true
       - key: PYTHON_VERSION
         value: 3.11.0
-
-  # ── Frontend React (Static Site) ────────────────────────────────────────────
-  - type: web
-    name: thehouse-frontend
-    runtime: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    plan: free
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_BASE_URL
-        fromService:
-          name: thehouse-backend
-          type: web
-          property: host
