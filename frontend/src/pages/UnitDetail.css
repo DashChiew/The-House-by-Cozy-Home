@@ -1,0 +1,227 @@
+.unit-detail { padding: 40px 0 80px; }
+
+/* Back link reuse */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--peach-500);
+  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+.back-link:hover { color: var(--peach-600); transform: translateX(-4px); }
+
+/* Unit Header */
+.unit-header {
+  margin-bottom: 40px;
+  padding: 32px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+.unit-header__name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 8px 0 14px;
+}
+.unit-header__badges { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.unit-header__avail { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
+.unit-header__desc { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; }
+
+/* Layout */
+.unit-detail__layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.unit-sidebar { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 90px; }
+.sidebar-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.sidebar-card__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--peach-100);
+}
+
+/* Equipment */
+.equip-tags-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.equip-tag {
+  background: var(--peach-100);
+  color: var(--peach-600);
+  border: 1px solid var(--peach-200);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: var(--font-heading);
+}
+.equip-tag--lg { padding: 7px 16px; font-size: 0.88rem; }
+
+.equip-block { margin-bottom: 16px; }
+.equip-block__title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.equip-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.equip-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+.equip-item__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--peach-400);
+  flex-shrink: 0;
+}
+
+/* Inclusion Table */
+.inclusion-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 4px;
+}
+.inclusion-col__header {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+}
+.inclusion-col__header--yes { background: #D1FAE5; color: #065F46; }
+.inclusion-col__header--no  { background: var(--rose-100); color: var(--rose-500); }
+.inclusion-col ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.inclusion-col ul li {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+.inclusion-col ul li::before { content: '•'; position: absolute; left: 0; color: var(--peach-300); }
+.inclusion-empty { font-size: 0.85rem; color: var(--text-muted); font-style: italic; }
+
+/* Rooms */
+.unit-rooms__title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+.rooms-list { display: flex; flex-direction: column; gap: 20px; }
+
+/* Room Card */
+.room-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+.room-card:hover { box-shadow: var(--shadow-md); border-color: var(--peach-200); }
+.room-card--unavailable { opacity: 0.65; }
+
+.room-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.room-card__name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+.room-card__type {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Prices */
+.room-card__prices {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.price-block {
+  flex: 1;
+  min-width: 120px;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+}
+.price-block--long {
+  background: linear-gradient(135deg, var(--peach-100), var(--peach-200));
+  border: 1px solid var(--peach-300);
+}
+.price-block--short {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  border: 1px solid #FCD34D;
+}
+.price-block__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.price-block__value {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--peach-600);
+}
+.price-block--short .price-block__value { color: #92400E; }
+.price-block__per { font-size: 0.75rem; font-weight: 500; margin-left: 2px; }
+
+.room-card__avail { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; }
+.room-card__equip { margin-bottom: 14px; }
+.room-card__equip-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.room-card__equip-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.room-card__inclusions { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--peach-100); }
+
+@media (max-width: 900px) {
+  .unit-detail__layout { grid-template-columns: 1fr; }
+  .unit-sidebar { position: static; }
+  .inclusion-table { grid-template-columns: 1fr; }
+}

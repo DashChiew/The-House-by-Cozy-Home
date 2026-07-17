@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+migrations/
+
+# SQLite local database
+*.db
+*.sqlite3
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+migrations/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads (don't commit photos to git)
+backend/app/uploads/
